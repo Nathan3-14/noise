@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://ksn0hpy863h1"]
+
+[ext_resource type="PackedScene" uid="uid://dix4dueansco3" path="res://block.fbx" id="1_1yqtg"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_36nhj"]
+size = Vector3(0.997701, 1, 1)
+
+[node name="scuffed" type="StaticBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0.5)
+shape = SubResource("BoxShape3D_36nhj")
+
+[node name="block" parent="." instance=ExtResource("1_1yqtg")]

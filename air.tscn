@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dlvq2417sp83l"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_geu53"]
+
+[node name="StaticBody3D" type="StaticBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_geu53")
+disabled = true

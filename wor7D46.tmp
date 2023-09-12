@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://cyrpx57k023tr"]
+
+[ext_resource type="Script" path="res://world.gd" id="1_eqibe"]
+
+[sub_resource type="Gradient" id="Gradient_4hbpk"]
+offsets = PackedFloat32Array(0, 0.36129, 1)
+colors = PackedColorArray(0, 1, 0, 1, 0.240469, 0.232137, 0.125098, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_toool"]
+noise_type = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_fsdts"]
+color_ramp = SubResource("Gradient_4hbpk")
+noise = SubResource("FastNoiseLite_toool")
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_eqibe")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("NoiseTexture2D_fsdts")
