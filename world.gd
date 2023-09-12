@@ -1,33 +1,74 @@
 extends Node3D
 
 @export var noise_scale = 5
-
-var grass = preload("res://grass_block.tscn")
-# mesh by 'Render at Night'
-var dirt = preload("res://dirt_block.tscn")
 var noise_generator = FastNoiseLite.new()
 
+# Define the dimensions of your 3D world
+var world_width = 32
+var world_height = 32  # actual height
+var world_depth = 32
+var surface_height = 25
+
+var air   = preload("res://air.tscn")
+var dirt  = preload("res://dirt_block.tscn")
+var grass = preload("res://grass_block.tscn")
+
+# Create an empty 3D array to represent your world
+var world_array = []
+
+# Initialize the world_array with default values (e.g., 0 for empty tiles)
 func _ready():
-	noise_generator.seed = 1234
+	noise_generator.set_seed(randi_range(0, 1000))
+	var current_noise = generatePerlinNoise(world_width, world_depth)
+	for x in range(world_width):
+		var column_2d = []
+		for y in range(world_height):
+			var column_3d = []
+			for z in range(world_depth):
+				column_3d.append(0)  # You can use different values to represent different types of tiles in 3D
+			column_2d.append(column_3d)
+		world_array.append(column_2d)
 	
-	var current_noise = generatePerlinNoise(50, 50)
-	
-	for x in range(0, 50):
+	for x in range(0, world_width):
 		var row = current_noise[x]
-		for y in range(0, 50):
-			var grass_inst = grass.instantiate()
-			add_child(grass_inst)
-			grass_inst.position.x = x
-			grass_inst.position.y = snappedi(row[y] * noise_scale, 1)
-			grass_inst.position.z = y
-			
-			var dirt_inst = dirt.instantiate()
-			add_child(dirt_inst)
-			dirt_inst.position.x = x
-			dirt_inst.position.y = snappedi(row[y] * noise_scale, 1)-1
-			dirt_inst.position.z = y
-			
-			
+		for y in range(0, world_depth-1):
+			var grass_y = row[y] * noise_scale + surface_height
+			print("grass_y: " + str(grass_y))
+			var dirt_y = grass_y-1
+			set_tile(x, grass_y, y, 2)
+			while dirt_y >= 0:
+				set_tile(x, dirt_y, y, 1)
+				dirt_y -= 1
+	
+	load_world()
+	
+	get_node("Player").position.y = surface_height + 5
+
+# Access and modify elements in the 3D world array
+func set_tile(x, y, z, value):
+	world_array[x][y][z] = value
+
+func get_tile(x, y, z):
+	return world_array[x][y][z]
+
+func load_world():
+	for child in get_node("Blocks").get_children():
+		child.queue_free()
+	
+	for x in range(world_width):
+		for y in range(world_height):
+			for z in range(world_height):
+				var tile = get_tile(x, y, z)
+				
+				var block
+				if tile == 0: block = air.instantiate()
+				elif tile == 1: block = dirt.instantiate()
+				elif tile == 2: block = grass.instantiate()
+				
+				block.position.x = x
+				block.position.y = y
+				block.position.z = z
+				get_node("Blocks").add_child(block)
 
 func generatePerlinNoise(width, height):
 	var noise_list = []
@@ -40,4 +81,3 @@ func generatePerlinNoise(width, height):
 		noise_list.append(row)
 	
 	return noise_list
-

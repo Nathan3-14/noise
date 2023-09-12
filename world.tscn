@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dvgi8oeagi45u"]
 
-[ext_resource type="Script" path="res://temp.gd" id="1_u3rnp"]
+[ext_resource type="Script" path="res://world.gd" id="1_cx8u5"]
 [ext_resource type="PackedScene" uid="uid://6th8c1nh2ubt" path="res://player.tscn" id="2_8ltf2"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1g2l4"]
@@ -14,7 +14,7 @@ background_energy_multiplier = 2.0
 sky = SubResource("Sky_3wrky")
 
 [node name="World" type="Node3D"]
-script = ExtResource("1_u3rnp")
+script = ExtResource("1_cx8u5")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.981627, 0.135627, -0.134214, 0, 0.703395, 0.710799, 0.190809, 0.69774, -0.690471, 0, 0, 0)
