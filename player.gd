@@ -11,6 +11,7 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 var look_dir:Vector2
 @onready var camera = $Camera3D
+@onready var raycast = $Camera3D/RayCast3D
 var camera_sense = 40
 
 
@@ -46,14 +47,26 @@ func _physics_process(delta):
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
 	if Input.is_action_pressed("ads"):
-		camera.fov = move_toward(camera.fov, 20, 5)
+		camera.fov = move_toward(camera.fov, 20, 10)
 		camera_sense = 10
 	else:
-		camera.fov = move_toward(camera.fov, 70, 5)
+		camera.fov = move_toward(camera.fov, 70, 10)
 		camera_sense = 40
+	
+	if Input.is_action_just_pressed("attack"):
+		if raycast.is_colliding():
+			var collider = raycast.get_collider()
+			get_parent().world_array[collider.position.x][collider.position.y][collider.position.z] = 0
+			collider.queue_free()
+	
+	if raycast.get_collider():
+		raycast.get_collider().selected = true
 	
 	if cap_mouse:
 		move_and_slide()
+		$CanvasLayer/UI.x = snapped(position.x, 0.1)
+		$CanvasLayer/UI.y = snapped(position.y, 0.1)
+		$CanvasLayer/UI.z = snapped(position.z, 0.1)
 
 func _input(event: InputEvent):
 	if event is InputEventMouseMotion: look_dir = event.relative * 0.01

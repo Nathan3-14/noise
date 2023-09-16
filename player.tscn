@@ -1,6 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://6th8c1nh2ubt"]
+[gd_scene load_steps=7 format=3 uid="uid://6th8c1nh2ubt"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_toktq"]
+[ext_resource type="PackedScene" uid="uid://dl57ugwfdsxnx" path="res://ui.tscn" id="2_skfsl"]
+[ext_resource type="Script" path="res://ui.gd" id="3_5gw85"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_h0crh"]
 
@@ -23,5 +25,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 current = true
 fov = 70.0
 
+[node name="RayCast3D" type="RayCast3D" parent="Camera3D"]
+target_position = Vector3(0, 0, -3)
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_km5pv")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" parent="CanvasLayer" instance=ExtResource("2_skfsl")]
+script = ExtResource("3_5gw85")

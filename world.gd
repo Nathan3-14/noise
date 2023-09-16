@@ -5,9 +5,9 @@ var noise_generator = FastNoiseLite.new()
 
 # Define the dimensions of your 3D world
 var world_width = 32
-var world_height = 32  # actual height
+var world_height = 16  # actual height
 var world_depth = 32
-var surface_height = 25
+var surface_height = 10
 
 var air   = preload("res://air.tscn")
 var dirt  = preload("res://dirt_block.tscn")
@@ -16,13 +16,18 @@ var grass = preload("res://grass_block.tscn")
 # Create an empty 3D array to represent your world
 var world_array = []
 
-# Initialize the world_array with default values (e.g., 0 for empty tiles)
 func _ready():
-	noise_generator.set_seed(randi_range(0, 1000))
+	generate_world()
+
+
+# Initialize the world_array with default values (e.g., 0 for empty tiles)
+func generate_world(seed=null):
+	if seed == null: noise_generator.set_seed(randi_range(0, 1000))
+	else: noise_generator.set_seed(seed)
 	var current_noise = generatePerlinNoise(world_width, world_depth)
 	for x in range(world_width):
 		var column_2d = []
-		for y in range(world_height):
+		for y in range(world_depth):
 			var column_3d = []
 			for z in range(world_depth):
 				column_3d.append(0)  # You can use different values to represent different types of tiles in 3D
@@ -33,7 +38,6 @@ func _ready():
 		var row = current_noise[x]
 		for y in range(0, world_depth-1):
 			var grass_y = row[y] * noise_scale + surface_height
-			print("grass_y: " + str(grass_y))
 			var dirt_y = grass_y-1
 			set_tile(x, grass_y, y, 2)
 			while dirt_y >= 0:
@@ -57,7 +61,7 @@ func load_world():
 	
 	for x in range(world_width):
 		for y in range(world_height):
-			for z in range(world_height):
+			for z in range(world_depth):
 				var tile = get_tile(x, y, z)
 				
 				var block

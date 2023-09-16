@@ -1,14 +1,25 @@
-[gd_scene load_steps=3 format=3 uid="uid://dlskxn5au4ou0"]
+[gd_scene load_steps=6 format=3 uid="uid://4df8axo75od4"]
 
 [ext_resource type="PackedScene" uid="uid://c747klkfl0uyn" path="res://minecraft_grass_block.glb" id="1_jlqqi"]
+[ext_resource type="Script" path="res://block.gd" id="1_x8o42"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_bf60u"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_hakkq"]
 
-[node name="grass_block" type="StaticBody3D"]
-collision_mask = 0
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pvvqf"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("BoxShape3D_bf60u")
+[sub_resource type="BoxMesh" id="BoxMesh_pis17"]
+material = SubResource("StandardMaterial3D_pvvqf")
+size = Vector3(1.1, 1.1, 1.1)
+
+[node name="temp_block" type="StaticBody3D"]
+script = ExtResource("1_x8o42")
 
 [node name="minecraft_grass_block" parent="." instance=ExtResource("1_jlqqi")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -0.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_hakkq")
+
+[node name="Selected" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("BoxMesh_pis17")

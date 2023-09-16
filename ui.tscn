@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://dl57ugwfdsxnx"]
+
+[ext_resource type="Texture2D" uid="uid://cbbmee72ctmv7" path="res://crosshair006.png" id="1_rwnlg"]
+
+[node name="UI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+offset_left = 504.0
+offset_top = 256.0
+offset_right = 648.0
+offset_bottom = 400.0
+texture = ExtResource("1_rwnlg")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+offset_right = 40.0
+offset_bottom = 26.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+
+[node name="HBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="X" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "X: {x}"
+
+[node name="Z" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Z: {Z}"
+
+[node name="Y" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Y: {y}"
