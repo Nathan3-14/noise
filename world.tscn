@@ -21,11 +21,6 @@ shadow_enabled = true
 
 [node name="Blocks" type="Node3D" parent="."]
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 5.0
-one_shot = true
-autostart = true
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="WorldCreator" type="Control" parent="CanvasLayer"]
@@ -34,15 +29,20 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Button" type="Button" parent="CanvasLayer/WorldCreator"]
+[node name="CreateWorld" type="Control" parent="CanvasLayer/WorldCreator"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Create" type="Button" parent="CanvasLayer/WorldCreator/CreateWorld"]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 8.0
-offset_right = 118.0
+offset_right = 120.0
 offset_bottom = 40.0
 text = "Create World"
 
-[node name="Seed" type="LineEdit" parent="CanvasLayer/WorldCreator"]
+[node name="Seed" type="LineEdit" parent="CanvasLayer/WorldCreator/CreateWorld"]
 layout_mode = 0
 offset_left = 56.0
 offset_top = 48.0
@@ -50,7 +50,7 @@ offset_right = 290.0
 offset_bottom = 79.0
 placeholder_text = "Leave blank for random seed"
 
-[node name="Label" type="Label" parent="CanvasLayer/WorldCreator"]
+[node name="Label" type="Label" parent="CanvasLayer/WorldCreator/CreateWorld"]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 52.0
@@ -58,8 +58,37 @@ offset_right = 56.0
 offset_bottom = 80.0
 text = "Seed:"
 
+[node name="LoadWorld" type="Control" parent="CanvasLayer/WorldCreator"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Load" type="Button" parent="CanvasLayer/WorldCreator/LoadWorld"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 96.0
+offset_right = 120.0
+offset_bottom = 127.0
+text = "Load World"
+
+[node name="Path" type="LineEdit" parent="CanvasLayer/WorldCreator/LoadWorld"]
+layout_mode = 0
+offset_left = 56.0
+offset_top = 136.0
+offset_right = 152.0
+offset_bottom = 167.0
+placeholder_text = "World Path"
+
+[node name="Label" type="Label" parent="CanvasLayer/WorldCreator/LoadWorld"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 140.0
+offset_right = 56.0
+offset_bottom = 166.0
+text = "Path:"
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_b65on")
 
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
-[connection signal="pressed" from="CanvasLayer/WorldCreator/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/WorldCreator/CreateWorld/Create" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/WorldCreator/LoadWorld/Load" to="." method="_on_load_pressed"]

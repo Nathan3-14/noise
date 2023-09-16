@@ -35,3 +35,9 @@ mesh = SubResource("CapsuleMesh_km5pv")
 
 [node name="UI" parent="CanvasLayer" instance=ExtResource("2_skfsl")]
 script = ExtResource("3_5gw85")
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0

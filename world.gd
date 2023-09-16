@@ -1,5 +1,7 @@
 extends Node3D
 
+#var world_file = "user://world.dat"
+
 @export var noise_scale = 5
 var noise_generator = FastNoiseLite.new()
 
@@ -44,8 +46,6 @@ func generate_world(seed=null):
 				dirt_y -= 1
 	
 	load_world()
-	
-	
 
 # Access and modify elements in the 3D world array
 func set_tile(x, y, z, value):
@@ -72,6 +72,8 @@ func load_world():
 				block.position.y = y
 				block.position.z = z
 				get_node("Blocks").add_child(block)
+	add_child(player.instantiate())
+	get_node("Player").position.y = surface_height + 5
 
 func generatePerlinNoise(width, height):
 	var noise_list = []
@@ -85,18 +87,37 @@ func generatePerlinNoise(width, height):
 	
 	return noise_list
 
-
-func _on_timer_timeout():
-	pass
-	#add_child(player.instantiate())
-	#get_node("Player").position.y = surface_height + 5
-	#$CanvasLayer.visible = false
-
-
 func _on_button_pressed():
-	add_child(player.instantiate())
-	get_node("Player").position.y = surface_height + 5
 	$CanvasLayer.visible = false
-	var text = $CanvasLayer/WorldCreator/Seed.text
-	if text != "": generate_world(int($CanvasLayer/WorldCreator/Seed.text))
+	var text = $CanvasLayer/WorldCreator/CreateWorld/Seed.text
+	if text != "": generate_world(int($CanvasLayer/WorldCreator/CreateWorld/Seed.text))
 	else: generate_world()
+
+
+
+
+func save_file(world_file):
+	var file = FileAccess.open(world_file,FileAccess.WRITE)
+	var data = create_data()
+	print(data)
+	file.store_var(data)
+	file.close()
+
+func load_file(world_file):
+	var file = FileAccess.open(world_file, FileAccess.READ)
+	if FileAccess.file_exists(world_file):
+		var loaded_player_data = file.get_var()
+		world_array = loaded_player_data.WORLD
+	file.close()
+
+func create_data():
+	var data_dict = {
+		"WORLD" : world_array,
+	}
+	return data_dict
+
+
+func _on_load_pressed():
+	$CanvasLayer.visible = false
+	load_file($CanvasLayer/WorldCreator/LoadWorld/Path.text)
+	load_world()

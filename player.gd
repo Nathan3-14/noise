@@ -63,6 +63,10 @@ func _physics_process(delta):
 	if raycast.get_collider():
 		raycast.get_collider().selected = true
 	
+	if Input.is_action_just_pressed("save"):
+		print("saving")
+		get_parent().save_file("user://save.dat")
+	
 	if cap_mouse:
 		move_and_slide()
 		$CanvasLayer/UI.x = snapped(position.x, 0.1)
