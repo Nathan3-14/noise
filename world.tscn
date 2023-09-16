@@ -1,29 +1,65 @@
-[gd_scene load_steps=6 format=3 uid="uid://dvgi8oeagi45u"]
+[gd_scene load_steps=5 format=3 uid="uid://dvgi8oeagi45u"]
 
 [ext_resource type="Script" path="res://world.gd" id="1_cx8u5"]
-[ext_resource type="PackedScene" uid="uid://6th8c1nh2ubt" path="res://player.tscn" id="2_8ltf2"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1g2l4"]
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4e7fe"]
 
-[sub_resource type="Sky" id="Sky_3wrky"]
-sky_material = SubResource("ProceduralSkyMaterial_1g2l4")
+[sub_resource type="Sky" id="Sky_ents1"]
+sky_material = SubResource("ProceduralSkyMaterial_4e7fe")
 
-[sub_resource type="Environment" id="Environment_mhb0h"]
+[sub_resource type="Environment" id="Environment_b65on"]
 background_mode = 2
-background_energy_multiplier = 2.0
-sky = SubResource("Sky_3wrky")
+sky = SubResource("Sky_ents1")
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_cx8u5")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.981627, 0.135627, -0.134214, 0, 0.703395, 0.710799, 0.190809, 0.69774, -0.690471, 0, 0, 0)
+transform = Transform3D(-0.685818, -0.372651, 0.625128, 0, 0.85896, 0.512043, -0.727773, 0.351168, -0.58909, 0, 0, 0)
 light_color = Color(1, 1, 0.815686, 1)
 shadow_enabled = true
 
-[node name="Player" parent="." instance=ExtResource("2_8ltf2")]
+[node name="Blocks" type="Node3D" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="WorldCreator" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="CanvasLayer/WorldCreator"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 118.0
+offset_bottom = 40.0
+text = "Create World"
+
+[node name="Seed" type="LineEdit" parent="CanvasLayer/WorldCreator"]
+layout_mode = 0
+offset_left = 56.0
+offset_top = 48.0
+offset_right = 290.0
+offset_bottom = 79.0
+placeholder_text = "Leave blank for random seed"
+
+[node name="Label" type="Label" parent="CanvasLayer/WorldCreator"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 52.0
+offset_right = 56.0
+offset_bottom = 80.0
+text = "Seed:"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_mhb0h")
+environment = SubResource("Environment_b65on")
 
-[node name="Blocks" type="Node3D" parent="."]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="pressed" from="CanvasLayer/WorldCreator/Button" to="." method="_on_button_pressed"]

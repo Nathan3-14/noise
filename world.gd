@@ -13,11 +13,10 @@ var air   = preload("res://air.tscn")
 var dirt  = preload("res://dirt_block.tscn")
 var grass = preload("res://grass_block.tscn")
 
+var player = preload("res://player.tscn")
+
 # Create an empty 3D array to represent your world
 var world_array = []
-
-func _ready():
-	generate_world()
 
 
 # Initialize the world_array with default values (e.g., 0 for empty tiles)
@@ -46,7 +45,7 @@ func generate_world(seed=null):
 	
 	load_world()
 	
-	get_node("Player").position.y = surface_height + 5
+	
 
 # Access and modify elements in the 3D world array
 func set_tile(x, y, z, value):
@@ -85,3 +84,19 @@ func generatePerlinNoise(width, height):
 		noise_list.append(row)
 	
 	return noise_list
+
+
+func _on_timer_timeout():
+	pass
+	#add_child(player.instantiate())
+	#get_node("Player").position.y = surface_height + 5
+	#$CanvasLayer.visible = false
+
+
+func _on_button_pressed():
+	add_child(player.instantiate())
+	get_node("Player").position.y = surface_height + 5
+	$CanvasLayer.visible = false
+	var text = $CanvasLayer/WorldCreator/Seed.text
+	if text != "": generate_world(int($CanvasLayer/WorldCreator/Seed.text))
+	else: generate_world()
