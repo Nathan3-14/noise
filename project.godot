@@ -12,10 +12,16 @@ config_version=5
 
 config/name="noise"
 run/main_scene="res://world.tscn"
+config/use_custom_user_dir=true
+config/custom_user_dir_name="Noise"
 config/features=PackedStringArray("4.1", "Forward Plus")
 boot_splash/bg_color=Color(0.141176, 0.141176, 0.141176, 1)
 boot_splash/image="res://eye-large.png"
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/resizable=false
 
 [input]
 

@@ -75,9 +75,9 @@ text = "Load World"
 layout_mode = 0
 offset_left = 56.0
 offset_top = 136.0
-offset_right = 152.0
+offset_right = 140.0
 offset_bottom = 167.0
-placeholder_text = "World Path"
+placeholder_text = "world.dat"
 
 [node name="Label" type="Label" parent="CanvasLayer/WorldCreator/LoadWorld"]
 layout_mode = 0

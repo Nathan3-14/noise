@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://6th8c1nh2ubt"]
+[gd_scene load_steps=8 format=3 uid="uid://6th8c1nh2ubt"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_toktq"]
 [ext_resource type="PackedScene" uid="uid://dl57ugwfdsxnx" path="res://ui.tscn" id="2_skfsl"]
 [ext_resource type="Script" path="res://ui.gd" id="3_5gw85"]
+[ext_resource type="PackedScene" uid="uid://cqtqj4moy5yug" path="res://pause_menu.tscn" id="4_rmuy6"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_h0crh"]
 
@@ -36,8 +37,5 @@ mesh = SubResource("CapsuleMesh_km5pv")
 [node name="UI" parent="CanvasLayer" instance=ExtResource("2_skfsl")]
 script = ExtResource("3_5gw85")
 
-[node name="Control" type="Control" parent="CanvasLayer"]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("4_rmuy6")]
+visible = false

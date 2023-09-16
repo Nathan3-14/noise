@@ -6,6 +6,7 @@ const JUMP_VELOCITY = 4.5
 
 var cap_mouse = false
 var starting = true
+var is_menu = false
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -40,12 +41,17 @@ func _physics_process(delta):
 		_rotate_camera(delta)
 	
 	if Input.is_action_just_pressed("pause"):
-		cap_mouse = !cap_mouse
+		alter_paused()
 		
-		if cap_mouse:
-			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-		else:
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	
+	if $CanvasLayer/PauseMenu.is_save_press:
+		print("saving")
+		get_parent().save_file("user://saves/" + $CanvasLayer/PauseMenu/Save/LineEdit.text)
+		$CanvasLayer/PauseMenu.is_save_press = false
+	
+	if $CanvasLayer/PauseMenu.is_resume_press:
+		alter_paused()
+		$CanvasLayer/PauseMenu.is_resume_press = false
 	
 	if Input.is_action_pressed("ads") and cap_mouse:
 		camera.fov = move_toward(camera.fov, 20, 10)
@@ -62,10 +68,6 @@ func _physics_process(delta):
 	
 	if raycast.get_collider():
 		raycast.get_collider().selected = true
-	
-	if Input.is_action_just_pressed("save"):
-		print("saving")
-		get_parent().save_file("user://save.dat")
 	
 	if cap_mouse:
 		move_and_slide()
@@ -84,3 +86,13 @@ func _rotate_camera(delta: float, sense_mod: float = 1.0):
 	camera.rotation.x = clamp(camera.rotation.x - look_dir.y * camera_sense * sense_mod * delta, -1.5, 1.5)
 	look_dir = Vector2.ZERO
 
+func alter_paused():
+	cap_mouse = !cap_mouse
+	
+	if cap_mouse:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	else:
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	
+	if is_menu: $CanvasLayer/PauseMenu.visible = !$CanvasLayer/PauseMenu.visible
+	else: is_menu = true

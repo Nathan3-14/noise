@@ -119,5 +119,5 @@ func create_data():
 
 func _on_load_pressed():
 	$CanvasLayer.visible = false
-	load_file($CanvasLayer/WorldCreator/LoadWorld/Path.text)
+	load_file("user://saves/" + $CanvasLayer/WorldCreator/LoadWorld/Path.text)
 	load_world()

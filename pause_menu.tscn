@@ -1,0 +1,67 @@
+[gd_scene load_steps=3 format=3 uid="uid://cqtqj4moy5yug"]
+
+[ext_resource type="Script" path="res://pause_menu.gd" id="1_p7e0q"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7xhnb"]
+size = Vector2(456, 104)
+
+[node name="PauseMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_p7e0q")
+
+[node name="Resume" type="Button" parent="."]
+layout_mode = 0
+offset_left = 464.0
+offset_top = 180.0
+offset_right = 689.0
+offset_bottom = 268.0
+theme_override_font_sizes/font_size = 56
+text = "Resume"
+
+[node name="Save" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Sense" type="Area2D" parent="Save"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Save/Sense"]
+position = Vector2(720, 320)
+shape = SubResource("RectangleShape2D_7xhnb")
+
+[node name="Save" type="Button" parent="Save"]
+layout_mode = 0
+offset_left = 500.0
+offset_top = 276.0
+offset_right = 652.0
+offset_bottom = 364.0
+theme_override_font_sizes/font_size = 56
+text = "Save
+"
+
+[node name="LineEdit" type="LineEdit" parent="Save"]
+layout_mode = 0
+offset_left = 660.0
+offset_top = 276.0
+offset_right = 940.0
+offset_bottom = 364.0
+theme_override_font_sizes/font_size = 44
+placeholder_text = "filename.dat"
+
+[node name="Quit" type="Button" parent="."]
+layout_mode = 0
+offset_left = 512.0
+offset_top = 372.0
+offset_right = 640.0
+offset_bottom = 457.0
+theme_override_font_sizes/font_size = 56
+text = "Quit"
+
+[connection signal="pressed" from="Resume" to="." method="_on_resume_pressed"]
+[connection signal="mouse_entered" from="Save/Sense" to="." method="_on_sense_mouse_entered"]
+[connection signal="mouse_exited" from="Save/Sense" to="." method="_on_sense_mouse_exited"]
+[connection signal="pressed" from="Save/Save" to="." method="_on_save_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
