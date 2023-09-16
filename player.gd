@@ -47,14 +47,14 @@ func _physics_process(delta):
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
-	if Input.is_action_pressed("ads"):
+	if Input.is_action_pressed("ads") and cap_mouse:
 		camera.fov = move_toward(camera.fov, 20, 10)
 		camera_sense = 10
 	else:
 		camera.fov = move_toward(camera.fov, 70, 10)
 		camera_sense = 40
 	
-	if Input.is_action_just_pressed("attack"):
+	if Input.is_action_just_pressed("attack") and cap_mouse:
 		if raycast.is_colliding():
 			var collider = raycast.get_collider()
 			get_parent().world_array[collider.position.x][collider.position.y][collider.position.z] = 0
