@@ -94,5 +94,7 @@ func alter_paused():
 	else:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
-	if is_menu: $CanvasLayer/PauseMenu.visible = !$CanvasLayer/PauseMenu.visible
+	if is_menu:
+		$CanvasLayer/PauseMenu.visible = !$CanvasLayer/PauseMenu.visible
+		$CanvasLayer/PauseMenu/Save/LineEdit.text = get_parent().world_file
 	else: is_menu = true

@@ -1,6 +1,8 @@
 extends Node3D
 
-#var world_file = "user://world.dat"
+var world_file: String
+
+
 
 @export var noise_scale = 5
 var noise_generator = FastNoiseLite.new()
@@ -24,17 +26,19 @@ var world_array = []
 
 
 func world_button_pressed(world_name):
-	print(world_name)
 	$CanvasLayer.visible = false
-	load_file("user://saves/" + world_name + ".dat")
+	load_file("user://saves/" + world_name)
+	world_file = world_name
 	load_world()
 
 
 func _ready():
 	for world in list_files_in_directory("user://saves"):
 		var button = world_button.instantiate()
+		button.world = world
+		button.text = world.split(".")[0]
 		button.connect("pressed", world_button_pressed.bind(button.world))
-		$CanvasLayer/WorldCreator/LoadWorld/Worlds.add_child(button)
+		$CanvasLayer/WorldCreator/LoadWorld/ScrollContainer/Worlds.add_child(button)
 
 # Initialize the world_array with default values (e.g., 0 for empty tiles)
 func generate_world(seed=null):
@@ -116,6 +120,7 @@ func save_file(world_file):
 	file.close()
 
 func load_file(world_file):
+	print("world_file: " + world_file)
 	var file = FileAccess.open(world_file, FileAccess.READ)
 	if FileAccess.file_exists(world_file):
 		var loaded_player_data = file.get_var()
@@ -150,3 +155,11 @@ func list_files_in_directory(path):
 	dir.list_dir_end()
 
 	return files
+
+
+func _on_load_entered():
+	$CanvasLayer/WorldCreator/LoadWorld/ManualLoad.visible = true
+
+
+func _on_load_exited():
+	$CanvasLayer/WorldCreator/LoadWorld/ManualLoad.visible = false
