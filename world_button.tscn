@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://cywofgk5m5fb0"]
+
+[ext_resource type="Script" path="res://world_button.gd" id="1_ot8ru"]
+
+[node name="WorldButton" type="Button"]
+offset_right = 160.0
+offset_bottom = 31.0
+text = "world_name.dat"
+script = ExtResource("1_ot8ru")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

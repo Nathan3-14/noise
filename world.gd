@@ -17,9 +17,24 @@ var grass = preload("res://grass_block.tscn")
 
 var player = preload("res://player.tscn")
 
+var world_button = preload("res://world_button.tscn")
+
 # Create an empty 3D array to represent your world
 var world_array = []
 
+
+func world_button_pressed(world_name):
+	print(world_name)
+	$CanvasLayer.visible = false
+	load_file("user://saves/" + world_name + ".dat")
+	load_world()
+
+
+func _ready():
+	for world in list_files_in_directory("user://saves"):
+		var button = world_button.instantiate()
+		button.connect("pressed", world_button_pressed.bind(button.world))
+		$CanvasLayer/WorldCreator/LoadWorld/Worlds.add_child(button)
 
 # Initialize the world_array with default values (e.g., 0 for empty tiles)
 func generate_world(seed=null):
@@ -94,12 +109,9 @@ func _on_button_pressed():
 	else: generate_world()
 
 
-
-
 func save_file(world_file):
 	var file = FileAccess.open(world_file,FileAccess.WRITE)
 	var data = create_data()
-	print(data)
 	file.store_var(data)
 	file.close()
 
@@ -121,3 +133,20 @@ func _on_load_pressed():
 	$CanvasLayer.visible = false
 	load_file("user://saves/" + $CanvasLayer/WorldCreator/LoadWorld/Path.text)
 	load_world()
+	
+
+func list_files_in_directory(path):
+	var files = []
+	var dir = DirAccess.open(path)
+	dir.list_dir_begin()
+
+	while true:
+		var file = dir.get_next()
+		if file == "":
+			break
+		elif not file.begins_with("."):
+			files.append(file)
+
+	dir.list_dir_end()
+
+	return files
