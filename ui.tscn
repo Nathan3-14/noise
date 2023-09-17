@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dl57ugwfdsxnx"]
+[gd_scene load_steps=3 format=3 uid="uid://dl57ugwfdsxnx"]
 
 [ext_resource type="Texture2D" uid="uid://cbbmee72ctmv7" path="res://crosshair006.png" id="1_rwnlg"]
+[ext_resource type="Texture2D" uid="uid://chk1uyanxad4l" path="res://pickaxe.png" id="2_02hre"]
 
 [node name="UI" type="Control"]
 layout_mode = 3
@@ -10,7 +11,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="Crosshair" type="TextureRect" parent="."]
 layout_mode = 2
 offset_left = 504.0
 offset_top = 256.0
@@ -25,17 +26,30 @@ offset_bottom = 26.0
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 
-[node name="HBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="X" type="Label" parent="MarginContainer/HBoxContainer"]
+[node name="X" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "X: {x}"
 
-[node name="Z" type="Label" parent="MarginContainer/HBoxContainer"]
+[node name="Z" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Z: {Z}"
 
-[node name="Y" type="Label" parent="MarginContainer/HBoxContainer"]
+[node name="Y" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Y: {y}"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 536.0
+offset_right = 1024.0
+offset_bottom = 600.0
+
+[node name="TextureRect2" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_02hre")
+expand_mode = 2
+stretch_mode = 5

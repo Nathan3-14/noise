@@ -53,14 +53,14 @@ func _physics_process(delta):
 		alter_paused()
 		$CanvasLayer/PauseMenu.is_resume_press = false
 	
-	if Input.is_action_pressed("ads") and cap_mouse:
+	if Input.is_action_pressed("zoom") and cap_mouse:
 		camera.fov = move_toward(camera.fov, 20, 10)
 		camera_sense = 10
 	else:
 		camera.fov = move_toward(camera.fov, 70, 10)
 		camera_sense = 40
 	
-	if Input.is_action_just_pressed("attack") and cap_mouse:
+	if Input.is_action_just_pressed("action") and cap_mouse:
 		if raycast.is_colliding():
 			var collider = raycast.get_collider()
 			get_parent().world_array[collider.position.x][collider.position.y][collider.position.z] = 0
