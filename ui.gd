@@ -32,10 +32,10 @@ func _process(delta):
 		change_item(player.selected_item)
 		player.selected_item -= 1
 	
-	if player.selected_item > 1:
+	if player.selected_item > 2:
 		player.selected_item = 0
 	if player.selected_item < 0:
-		player.selected_item = 1
+		player.selected_item = 2
 	if changed:
 		change_item(player.selected_item)
 	

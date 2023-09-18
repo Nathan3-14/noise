@@ -76,6 +76,14 @@ func _physics_process(delta):
 					var grass = get_parent().grass.instantiate()
 					get_parent().add_child(grass)
 					grass.position = place_vector
+			2:
+				if raycast.is_colliding():
+					var collider = raycast.get_collider()
+					var place_vector = Vector3(collider.position) + raycast.get_collision_normal()
+					get_parent().world_array[place_vector[0]][place_vector[1]][place_vector[2]] = 1
+					var dirt = get_parent().dirt.instantiate()
+					get_parent().add_child(dirt)
+					dirt.position = place_vector
 	
 	if raycast.get_collider():
 		raycast.get_collider().selected = true
