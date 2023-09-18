@@ -15,6 +15,7 @@ var look_dir:Vector2
 @onready var camera = $Camera3D
 @onready var raycast = $Camera3D/RayCast3D
 var camera_sense = 40
+var selected_item = 0
 
 
 func _physics_process(delta):

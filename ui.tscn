@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://dl57ugwfdsxnx"]
+[gd_scene load_steps=5 format=3 uid="uid://dl57ugwfdsxnx"]
 
 [ext_resource type="Texture2D" uid="uid://cbbmee72ctmv7" path="res://crosshair006.png" id="1_rwnlg"]
 [ext_resource type="Texture2D" uid="uid://chk1uyanxad4l" path="res://pickaxe.png" id="2_02hre"]
+[ext_resource type="PackedScene" uid="uid://bfxkhc17bsion" path="res://item.tscn" id="2_l471v"]
+[ext_resource type="Texture2D" uid="uid://b3omjriv4a4uo" path="res://grass.png" id="3_b3iuq"]
 
 [node name="UI" type="Control"]
 layout_mode = 3
@@ -41,15 +43,20 @@ text = "Z: {Z}"
 layout_mode = 2
 text = "Y: {y}"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="Inventory" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(84, 0)
 layout_mode = 0
-offset_left = 128.0
-offset_top = 536.0
-offset_right = 1024.0
-offset_bottom = 600.0
+offset_left = 448.0
+offset_top = 524.0
+offset_right = 704.0
+offset_bottom = 588.0
 
-[node name="TextureRect2" type="TextureRect" parent="HBoxContainer"]
+[node name="Break" parent="Inventory" instance=ExtResource("2_l471v")]
+custom_minimum_size = Vector2(84, 0)
 layout_mode = 2
 texture = ExtResource("2_02hre")
-expand_mode = 2
-stretch_mode = 5
+
+[node name="Place" parent="Inventory" instance=ExtResource("2_l471v")]
+custom_minimum_size = Vector2(84, 0)
+layout_mode = 2
+texture = ExtResource("3_b3iuq")

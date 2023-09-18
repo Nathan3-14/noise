@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://bfxkhc17bsion"]
+
+[ext_resource type="Script" path="res://item.gd" id="1_cg7ar"]
+[ext_resource type="Texture2D" uid="uid://chk1uyanxad4l" path="res://pickaxe.png" id="1_pxsd5"]
+[ext_resource type="Texture2D" uid="uid://cbvmgbeabsa7s" path="res://select.png" id="2_w4xb3"]
+
+[node name="Item" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 72.0
+offset_bottom = 72.0
+script = ExtResource("1_cg7ar")
+
+[node name="Item" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 68.0
+offset_bottom = 68.0
+texture = ExtResource("1_pxsd5")
+expand_mode = 2
+
+[node name="Selected" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 72.0
+offset_bottom = 72.0
+texture = ExtResource("2_w4xb3")
