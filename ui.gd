@@ -32,10 +32,11 @@ func _process(delta):
 		change_item(player.selected_item)
 		player.selected_item -= 1
 	
-	if player.selected_item > 1 or player.selected_item < 0:
+	if player.selected_item > 1:
 		player.selected_item = 0
+	if player.selected_item < 0:
+		player.selected_item = 1
 	if changed:
 		change_item(player.selected_item)
 	
-	print($Inventory.get_child(player.selected_item))
-		
+	
