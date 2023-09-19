@@ -61,16 +61,17 @@ func _physics_process(delta):
 		camera.fov = move_toward(camera.fov, 70, 10)
 		camera_sense = 40
 	
+	var collider: Node
 	if Input.is_action_just_pressed("action") and cap_mouse:
 		match selected_item:
 			0:
 				if raycast.is_colliding():
-					var collider = raycast.get_collider()
+					collider = raycast.get_collider()
 					get_parent().world_array[collider.position.x][collider.position.y][collider.position.z] = 0
 					collider.queue_free()
 			1:
 				if raycast.is_colliding():
-					var collider = raycast.get_collider()
+					collider = raycast.get_collider()
 					var place_vector = Vector3(collider.position) + raycast.get_collision_normal()
 					get_parent().world_array[place_vector[0]][place_vector[1]][place_vector[2]] = 2
 					var grass = get_parent().grass.instantiate()
@@ -78,7 +79,7 @@ func _physics_process(delta):
 					grass.position = place_vector
 			2:
 				if raycast.is_colliding():
-					var collider = raycast.get_collider()
+					collider = raycast.get_collider()
 					var place_vector = Vector3(collider.position) + raycast.get_collision_normal()
 					get_parent().world_array[place_vector[0]][place_vector[1]][place_vector[2]] = 1
 					var dirt = get_parent().dirt.instantiate()
@@ -87,12 +88,17 @@ func _physics_process(delta):
 	
 	if raycast.get_collider():
 		raycast.get_collider().selected = true
+		collider = raycast.get_collider()
 	
 	if cap_mouse:
 		move_and_slide()
-		$CanvasLayer/UI.x = snapped(position.x, 0.1)
-		$CanvasLayer/UI.y = snapped(position.y, 0.1)
-		$CanvasLayer/UI.z = snapped(position.z, 0.1)
+		$CanvasLayer/UI.x = snapped(position.x, 0.01)
+		$CanvasLayer/UI.y = snapped(position.y, 0.01)
+		$CanvasLayer/UI.z = snapped(position.z, 0.01)
+		if collider:
+			$CanvasLayer/UI.block_x = snapped(collider.position.x, 0.1)
+			$CanvasLayer/UI.block_y = snapped(collider.position.y, 0.1)
+			$CanvasLayer/UI.block_z = snapped(collider.position.z, 0.1)
 
 func _input(event: InputEvent):
 	if event is InputEventMouseMotion: look_dir = event.relative * 0.01

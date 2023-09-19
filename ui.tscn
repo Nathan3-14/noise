@@ -23,27 +23,45 @@ offset_right = 648.0
 offset_bottom = 400.0
 texture = ExtResource("1_rwnlg")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="Coords" type="MarginContainer" parent="."]
 layout_mode = 2
 offset_right = 40.0
 offset_bottom = 26.0
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Coords"]
 layout_mode = 2
 
-[node name="X" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="Player" type="VBoxContainer" parent="Coords/HBoxContainer"]
+layout_mode = 2
+
+[node name="X" type="Label" parent="Coords/HBoxContainer/Player"]
 layout_mode = 2
 text = "X: {x}"
 
-[node name="Z" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="Z" type="Label" parent="Coords/HBoxContainer/Player"]
 layout_mode = 2
 text = "Z: {Z}"
 
-[node name="Y" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="Y" type="Label" parent="Coords/HBoxContainer/Player"]
 layout_mode = 2
 text = "Y: {y}"
+
+[node name="Block" type="VBoxContainer" parent="Coords/HBoxContainer"]
+layout_mode = 2
+
+[node name="X" type="Label" parent="Coords/HBoxContainer/Block"]
+layout_mode = 2
+text = "Block X: {x}"
+
+[node name="Y" type="Label" parent="Coords/HBoxContainer/Block"]
+layout_mode = 2
+text = "Block Y: {y}"
+
+[node name="Z" type="Label" parent="Coords/HBoxContainer/Block"]
+layout_mode = 2
+text = "Block Z: {z}"
 
 [node name="Inventory" type="HBoxContainer" parent="."]
 custom_minimum_size = Vector2(84, 0)
