@@ -1,6 +1,8 @@
 extends Control
 
 
+var max_inv_slots = 2
+
 @export var x = 0.00
 @export var y = 0.00
 @export var z = 0.00
@@ -55,10 +57,10 @@ func _process(delta):
 	
 	
 	
-	if player.selected_item > 2:
+	if player.selected_item > max_inv_slots-1:
 		player.selected_item = 0
 	if player.selected_item < 0:
-		player.selected_item = 2
+		player.selected_item = max_inv_slots-1
 	if changed:
 		change_item(player.selected_item)
 	

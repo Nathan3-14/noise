@@ -62,14 +62,16 @@ func _physics_process(delta):
 		camera_sense = 40
 	
 	var collider: Node
-	if Input.is_action_just_pressed("action") and cap_mouse:
+	
+	if Input.is_action_just_pressed("attack") and cap_mouse:
+		if raycast.is_colliding():
+			collider = raycast.get_collider()
+			get_parent().world_array[collider.position.x][collider.position.y][collider.position.z] = 0
+			collider.queue_free()
+	
+	if Input.is_action_just_pressed("place") and cap_mouse:
 		match selected_item:
 			0:
-				if raycast.is_colliding():
-					collider = raycast.get_collider()
-					get_parent().world_array[collider.position.x][collider.position.y][collider.position.z] = 0
-					collider.queue_free()
-			1:
 				if raycast.is_colliding():
 					collider = raycast.get_collider()
 					var place_vector = Vector3(collider.position) + raycast.get_collision_normal()
@@ -77,7 +79,7 @@ func _physics_process(delta):
 					var grass = get_parent().grass.instantiate()
 					get_parent().add_child(grass)
 					grass.position = place_vector
-			2:
+			1:
 				if raycast.is_colliding():
 					collider = raycast.get_collider()
 					var place_vector = Vector3(collider.position) + raycast.get_collision_normal()
